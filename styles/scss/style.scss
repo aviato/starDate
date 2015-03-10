@@ -6,11 +6,15 @@
 html, body {
     margin: 0;
     padding: 0;
+    background-color:#e8e8e8;
 }
 h1 {
-    padding: 2em;
+    padding: 1em;
     text-align: center;
     margin: 0 auto;
+}
+h2 {
+    text-align: center;
 }
 .calendarContainer {
     margin: 0 auto;
@@ -43,14 +47,21 @@ h1 {
     display: inline-block;
     border: 1px solid black;
     padding: 2em;
+    background: #f3f3f3;
 }
 .currentDayNode {
     margin: .25em;
     width: 13%;
     display: inline-block;
-    border: 2px solid red;
+    border: 1px solid white;
     padding: 2em;
 }
 .datesContainer {
 }
-.dayLabelContainer{}
+.dayLabelContainer{
+
+}
+
+button {
+    padding: 1em;
+}
