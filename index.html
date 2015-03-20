@@ -5,7 +5,10 @@
 <head>
   <meta charset="utf-8">
   <title>Stardate | 2015</title>
-  <link rel="stylesheet" href="styles/css/style.css">
+  <link rel="stylesheet" href="styles/css/main.css">
+  <link href='http://fonts.googleapis.com/css?family=Lora:700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Josefin+Slab' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Old+Standard+TT' rel='stylesheet' type='text/css'>
 </head>
 <!--
     The goal is to make an HTML5/CSS3 calendar app that will satisfy all these criteria:
@@ -32,8 +35,18 @@
         - A to-do list of some kind should be implemented as a feature.
 -->
 <body>
-    <div class="headingContainer"></div>
-    <div class="calendarContainer"></div>
+    <header>
+        <nav class="header-nav"></div>
+    </header>
+    <section class="calendarWrap">
+        <div class="headingContainer">
+            <div class="buttonContainer"></div>
+        </div>
+        <div class="calendarContainer"></div>
+    </section>
+    <footer>
+        <nav class="footer-nav"></nav>
+    </footer>
     <script src="js/stardate.js"></script>
 </body>
 

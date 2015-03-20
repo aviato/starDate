@@ -1,0 +1,22 @@
+.buttonContainer {
+    z-index: 1;
+    padding-top: 5em;
+}
+
+button {
+    -webkit-appearance: none;
+    -moz-appearance:    none;
+    appearance:         none;
+    padding: 1em;
+    border: none;}
+
+.nextMonth {
+    background-color: $buttonBg;
+    margin-right: -1em;
+    margin-top: 1em;
+    float: right;}
+.prevMonth {
+    background-color: $buttonBg;
+    margin-left: -1em;
+    margin-top: 1em;
+    float: left;}

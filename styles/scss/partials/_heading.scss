@@ -1,0 +1,34 @@
+@import "partials/base";
+@import "partials/typography";
+
+$h1FontSize: 2em;
+$h2FontSize: 1.5em;
+
+.headingContainer {
+    margin: 0 auto;
+    max-width: 75%;
+}
+
+.buttonContainer {
+    margin: 0 auto;
+    height: 70px;
+    max-width: 40%;
+}
+
+.dayLabelContainer {
+    margin: 0 auto;
+}
+
+h1 {
+    margin: 0 auto;
+    text-align: center;
+    font-family: $headingFont;
+    font-weight: $headingFontWeight;
+    font-size: $h1FontSize;}
+
+h2 {
+    margin: 0 auto;
+    text-align: center;
+    font-family: $headingFont;
+    font-weight: $headingFontWeight;
+    font-size: $h2FontSize;}

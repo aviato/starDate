@@ -1,48 +1,43 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * * * * * * * * * * * * * * * * * * S T A R D A T E * * * * * * * * * * * * * * * * *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/* 
+    Stardate 2015
+    Ryan S. Price
+*/
 
 var StarDate = function () {
     this.heading    = document.querySelector('.headingContainer');   // this is where heading stuff goes
     this.container  = document.querySelector('.calendarContainer');  // this is where calendar stuff goes
+    this.buttonWrap = document.querySelector('.buttonContainer');    // this is where buttons go
     this.dateInfo   = new Date();                                    // creates a new date object
     this.date       = this.dateInfo.getDate();                       // returns value 1-31
     this.today      = this.dateInfo.getDay();                        // returns value 0-6
     this.month      = this.dateInfo.getMonth();                      // returns value 0-11
     this.year       = this.dateInfo.getFullYear();                   // returns 4 digit year value
     this.monthArray = [];                                            // stores Month objects
-    this.dayArray = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    this.dayArray   = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    //this.user       = new User();                                    // will create a user object
+    //this.toDoArray = [];                                            // will store toDo objects
 };
 
-// displays the current year in StarDate.heading
-StarDate.prototype.displayYear = function () {
-    this.yearEl      = document.createElement('h2');
-    this.displayYear = document.createTextNode(this.year);
-    this.yearEl.appendChild(this.displayYear);
-    this.heading.appendChild(this.yearEl);
-};
-
-// function creates a month classe and an object for each month of the year
+// function creates a month class and an object for each month of the year
 // then adds all the month objects to StarDate.monthArray
 StarDate.prototype.monthMachine = function () {
-    function Month(monthVal, monthName, numDays, season) {
-        this.monthVal  = monthVal;
+    function Month(monthName, numDays, season) {
         this.monthName = monthName;
         this.numDays   = numDays;
         this.season    = season;
     }
-    var january          = new Month(0, "January", 31, "Winter");
-    var february         = new Month(1, "February", 28, "Winter");
-    var march            = new Month(2, "March", 31, "Spring");
-    var april            = new Month(3, "April", 30, "Spring");
-    var may              = new Month(4, "May", 31, "Spring");
-    var june             = new Month(5, "June", 30, "Summer");
-    var july             = new Month(6, "July", 31, "Summer");
-    var august           = new Month(7, "August", 31, "Summer");
-    var september        = new Month(8, "September", 30, "Autumn");
-    var october          = new Month(9, "October", 31, "Autumn");
-    var november         = new Month(10, "November", 30, "Autumn");
-    var decemeber        = new Month(11, "December", 31, "Winter");
+    var january          = new Month("January", 31, "Winter");
+    var february         = new Month("February", 28, "Winter");
+    var march            = new Month("March", 31, "Spring");
+    var april            = new Month("April", 30, "Spring");
+    var may              = new Month("May", 31, "Spring");
+    var june             = new Month("June", 30, "Summer");
+    var july             = new Month("July", 31, "Summer");
+    var august           = new Month("August", 31, "Summer");
+    var september        = new Month("September", 30, "Autumn");
+    var october          = new Month("October", 31, "Autumn");
+    var november         = new Month("November", 30, "Autumn");
+    var decemeber        = new Month("December", 31, "Winter");
     this.monthArray.push(january, february, march, april, may, june, july, august, september, october, november, decemeber);
 };
 
@@ -53,6 +48,36 @@ StarDate.prototype.displayMonth = function () {
     this.displayMonth = document.createTextNode(currentMonth.monthName);
     this.monthEl.appendChild(this.displayMonth);
     this.heading.appendChild(this.monthEl);
+};
+
+// displays the current year in StarDate.heading
+StarDate.prototype.displayYear = function () {
+    this.yearEl      = document.createElement('h2');
+    this.displayYear = document.createTextNode(this.year);
+    this.yearEl.appendChild(this.displayYear);
+    this.heading.appendChild(this.yearEl);
+};
+
+// creates a button class which instantiates 2 button objects
+// and adds them to the DOM on instantiation
+StarDate.prototype.createButtons = function () {
+    var _this = this;
+    function ButtonEl(el, cssClass, text) {
+        this.el       = el;
+        this.cssClass = cssClass;
+        this.text     = text;
+        this.buttonNode = document.createElement(el);
+        this.buttonNode.className = this.cssClass;
+        this.buttonText = document.createTextNode(this.text);
+        this.buttonNode.appendChild(this.buttonText);
+        _this.buttonWrap.appendChild(this.buttonNode);
+    }
+    this.prevButton = new ButtonEl('button', 'prevMonth', '<');
+    this.nextButton = new ButtonEl('button', 'nextMonth', '>');
+    var nextMonthBind   = this.nextMonth.bind(this);
+    var prevMonthBind   = this.prevMonth.bind(this);
+    this.nextButton.buttonNode.addEventListener('click', nextMonthBind, false);
+    this.prevButton.buttonNode.addEventListener('click', prevMonthBind, false);
 };
 
 // get next month
@@ -91,39 +116,21 @@ StarDate.prototype.prevMonth = function () {
     return this.initBody();
 };
 
-// creates a button class which instantiates 2 button objects
-// and adds them to the DOM on instantiation
-StarDate.prototype.createButtons = function () {
-    var _this = this;
-    function ButtonEl(el, cssClass) {
-        this.el       = el;
-        this.cssClass = cssClass;
-        this.buttonNode = document.createElement(el);
-        el.className += this.cssClass;
-        _this.heading.appendChild(this.buttonNode);
-    }
-    this.prevButton = new ButtonEl('button', 'prevMonth');
-    this.nextButton = new ButtonEl('button', 'nextMonth');
-    var nextMonthBind   = this.nextMonth.bind(this);
-    var prevMonthBind   = this.prevMonth.bind(this);
-    this.nextButton.buttonNode.addEventListener('click', nextMonthBind);
-    this.prevButton.buttonNode.addEventListener('click', prevMonthBind);
-};
-
-
+// create DOM nodes to hold objects
 StarDate.prototype.createDateNodeContainer = function () {
     this.datesContainer = document.createElement('div');
     this.datesContainer.className = 'datesContainer';
     this.container.appendChild(this.datesContainer);
 };
 
+// create a container for the day-labels
 StarDate.prototype.createDayLabelContainer = function () {
     this.dayLabelContainer = document.createElement('div');
     this.dayLabelContainer.className = 'dayLabelContainer';
     this.container.appendChild(this.dayLabelContainer);
 };
 
-// creates day-label nodes and appends them to this.container
+// create day-labels and append them to the container
 StarDate.prototype.createDayLabels = function () {
     var i;
     for (i = 0; i < this.dayArray.length; i++) {
@@ -142,12 +149,10 @@ StarDate.prototype.getDisplaceVal = function () {
     var m = this.month + 1;
 
     if (m === 1) {
-        console.log('jan: true');
         m  = 13;
         y -= 1;
     }
     if (m === 2) {
-        console.log('feb: true');
         m  = 14;
         y -= 1;
     }
@@ -188,16 +193,12 @@ StarDate.prototype.createHTMLDateNodes = function () {
         this.dateNode = document.createElement('div');
         this.dateText = document.createTextNode(i);
         this.dateNode.appendChild(this.dateText);
-        this.dateNode.className += 'dateNodeWrap';
+        this.dateNode.className = 'dateNodeWrap';
         this.datesContainer.appendChild(this.dateNode);
         // if (currentMonth.monthVal === this.month && i === this.date) { <-- broken
         //     this.dateNode.className = 'currentDayNode';
         // }
     }
-};
-
-StarDate.prototype.getCurrentDayNode = function () {
-
 };
 
 // removes date nodes from the DOM
@@ -225,7 +226,7 @@ StarDate.prototype.initBody = function () {
     this.getDisplaceVal();
     this.createDisplaceNodes();
     this.createHTMLDateNodes();
-    this.getCurrentDayNode();
+    //this.getCurrentDayNode();
 };
 
 // initialize the calendar
