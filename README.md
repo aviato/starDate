@@ -1,2 +1,2 @@
 # starDate
-A calendar built with pure JavaScript.
+A calendar built with JavaScript and SASS.
